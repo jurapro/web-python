@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  #Image for django
+  web:
+    image: jurapro/flex-space:web-python
+    build:
+      args:
+        SSH_USER: ${USER_LOGIN:-user}
+        SSH_PASS: ${USER_PASSWORD:-password}
+    restart: always
+    container_name: ${USER_LOGIN:-user}_web_python
+    volumes:
+      - ./sshd_config:/etc/ssh/sshd_config
+    ports:
+      - ${SSH_PORT:-22222}:22
+      - ${WEB_PORT:-8080}:8000
